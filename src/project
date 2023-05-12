@@ -1,0 +1,221 @@
+/**
+ * Brightness Pixels
+ * by Daniel Shiffman.
+ *
+ * This program adjusts the brightness of a part of the image by
+ * calculating the distance of each pixel to the mouse.
+ */
+
+PImage img;
+PImage monster1;
+int timer = 0;
+int savedTime;
+int totalTime = 10000;
+
+void setup() {
+  size(1000, 670);
+  frameRate(30);
+
+  //n
+
+
+  img = loadImage("3.jpg");
+  monster1= loadImage("Randommonster.png");
+  img.loadPixels();
+  // Only need to load the pixels[] array once, because we're only
+  // manipulating pixels[] inside draw(), not drawing shapes.
+  loadPixels();
+  savedTime = millis();
+}
+void keyPressed(){
+  if (key==' '){
+    img=loadImage("3.jpg");// base image
+
+    savedTime = millis(); // Save the current time to restart the timer!
+  }
+}
+
+void draw() {
+  int passedTime = millis() - savedTime;//timer
+  if (passedTime >= totalTime) {
+    println("5 seconds have passed!");
+    int imageLoad=int (random(1,35));// chooses a random image
+    if (imageLoad==1){
+      img=loadImage("jumpscare.png");
+      System.out.println("image loaded");
+
+    }
+    else if (imageLoad==2){
+      img=loadImage("3.png");
+      System.out.println("image loaded");
+
+    }
+    else if (imageLoad==3){
+      img=loadImage("monster1.png");
+      System.out.println("image loaded");
+
+    }
+    else if (imageLoad==4){
+      img=loadImage("horse1.png");
+      System.out.println("image loaded");
+
+    }
+    else if (imageLoad==5){
+      img=loadImage("monster2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==6){
+      img=loadImage("monster3.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==7){
+      img=loadImage("monster5.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==8){
+      img=loadImage("monster6.png");
+      System.out.println("image loaded");
+    }
+     else if (imageLoad==9){
+      img=loadImage("monster7.png");
+      System.out.println("image loaded");
+    }
+      else if (imageLoad==10){
+      img=loadImage("monster8.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==11){
+      img=loadImage("creature1.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==12){
+      img=loadImage("Jumpscare2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==13){
+      img=loadImage("monster7.png");
+      System.out.println("image loaded");
+    }
+      else if (imageLoad==14){
+      img=loadImage("monster8.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==15){
+      img=loadImage("face1.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==16){
+      img=loadImage("face2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==17){
+      img=loadImage("face3.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==18){
+      img=loadImage("face4.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==19){
+      img=loadImage("human1.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==20){
+      img=loadImage("human2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==21){
+      img=loadImage("human3.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==22){
+      img=loadImage("human4.png");
+      System.out.println("image loaded");
+    }
+     else if (imageLoad==16){
+      img=loadImage("face2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==23){
+      img=loadImage("anomaly1.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==24){
+      img=loadImage("anomaly2.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==25){
+      img=loadImage("anomaly3.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==26){
+      img=loadImage("anomaly4.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==27){
+      img=loadImage("anomaly5.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==28){
+      img=loadImage("anomaly6.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==29){
+      img=loadImage("anomaly7.png");
+      System.out.println("image loaded");
+    }
+    else if (imageLoad==30){
+      img=loadImage("anomaly8.png");
+      System.out.println("image loaded");
+
+    }
+    else if (imageLoad==31){
+      img=loadImage("shadow1.png");
+      System.out.println("image loaded");
+    }
+
+    else if (imageLoad==32){
+      img=loadImage("shadow2.jpg");
+      System.out.println("image loaded");
+    }
+
+    else if (imageLoad>32){
+      img=loadImage("3.jpg");
+      System.out.println("image loaded");
+    }
+    totalTime=int (random(10,20))*1000;// random time to next anomaly
+    savedTime = millis(); // Save the current time to restart the timer!
+
+
+
+     // Color a new background
+
+  }
+  for (int x = 0; x < img.width; x++) {
+    for (int y = 0; y < img.height; y++ ) {
+      // Calculate the 1D location from a 2D grid
+      int loc = x + y*img.width;
+      // Get the R,G,B values from image
+      float r,g,b;
+      r = red (img.pixels[loc]);
+      //g = green (img.pixels[loc]);
+      //b = blue (img.pixels[loc]);
+      // Calculate an amount to change brightness based on proximity to the mouse
+      float maxdist = 40;//dist(0,0,width,height);
+      float d = dist(x, y, mouseX, mouseY);
+      float adjustbrightness = 30*(maxdist-d)/maxdist;
+      r += adjustbrightness;
+      //g += adjustbrightness;
+      //b += adjustbrightness;
+      // Constrain RGB to make sure they are within 0-255 color range
+      r = constrain(r, 0, 255);
+      //g = constrain(g, 0, 255);
+      //b = constrain(b, 0, 255);
+      // Make a new color and set pixel in the window
+      //color c = color(r, g, b);
+      color c = color(r);
+      pixels[y*width + x] = c;
+    }
+  }
+  updatePixels();
+}
